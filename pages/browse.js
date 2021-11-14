@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import useContent from "../custom-hooks/useContent";
 import BrowseHeaderWrapper from "../components/Header/BrowseHeaderWrapper";
 import BrowseNavbar from "../components/Header/BrowseNavbar";
@@ -21,123 +22,148 @@ import CardFeatureClose from "../components/Movies/CardFeatureClose";
 import PlayerVideo from "../components/Movies/PlayerVideo";
 import PlayerOverlay from "../components/Movies/PlayerOverlay";
 import FooterCompound from "../compounds/FooterCompound";
+import SignoutButton from "../components/Header/SignoutButton";
 
 function BrowsePage() {
-  let { series } = useContent("series");
-  series = [
-    {
-      title: "Documentaries",
-      data: series.filter((item) => item.genre === "documentaries"),
-    },
-    {
-      title: "Comedies",
-      data: series.filter((item) => item.genre === "comedies"),
-    },
-    {
-      title: "Children",
-      data: series.filter((item) => item.genre === "children"),
-    },
-    { title: "Crime", data: series.filter((item) => item.genre === "crime") },
-    {
-      title: "Feel-Good",
-      data: series.filter((item) => item.genre === "feel-good"),
-    },
-  ];
+	let { series } = useContent("series");
+	series = [
+		{
+			title: "Documentaries",
+			data: series.filter((item) => item.genre === "documentaries"),
+		},
+		{
+			title: "Comedies",
+			data: series.filter((item) => item.genre === "comedies"),
+		},
+		{
+			title: "Children",
+			data: series.filter((item) => item.genre === "children"),
+		},
+		{ title: "Crime", data: series.filter((item) => item.genre === "crime") },
+		{
+			title: "Feel-Good",
+			data: series.filter((item) => item.genre === "feel-good"),
+		},
+	];
 
-  let { films } = useContent("films");
-  films = [
-    { title: "Drama", data: films.filter((item) => item.genre === "drama") },
-    {
-      title: "Thriller",
-      data: films.filter((item) => item.genre === "thriller"),
-    },
-    {
-      title: "Children",
-      data: films.filter((item) => item.genre === "children"),
-    },
-    {
-      title: "Suspense",
-      data: films.filter((item) => item.genre === "suspense"),
-    },
-    {
-      title: "Romance",
-      data: films.filter((item) => item.genre === "romance"),
-    },
-  ];
+	let { films } = useContent("films");
+	films = [
+		{ title: "Drama", data: films.filter((item) => item.genre === "drama") },
+		{
+			title: "Thriller",
+			data: films.filter((item) => item.genre === "thriller"),
+		},
+		{
+			title: "Children",
+			data: films.filter((item) => item.genre === "children"),
+		},
+		{
+			title: "Suspense",
+			data: films.filter((item) => item.genre === "suspense"),
+		},
+		{
+			title: "Romance",
+			data: films.filter((item) => item.genre === "romance"),
+		},
+	];
 
-  const [category, setCategory] = useState("films");
-  const currentCategory = category === "films" ? films : series;
-  const [showCardFeature, setShowCardFeature] = useState(false);
-  const [activeItem, setActiveItem] = useState(false);
-  const [showPlayer, setShowPlayer] = useState(false);
+	const [category, setCategory] = useState("films");
+	const currentCategory = category === "films" ? films : series;
+	const [showCardFeature, setShowCardFeature] = useState(false);
+	const [activeItem, setActiveItem] = useState(false);
+	const [showPlayer, setShowPlayer] = useState(false);
 
-  return (
-    <>
-      <BrowseHeaderWrapper>
-        <BrowseNavbar>
-          <Logo />
-          <HeaderLink onClick={() => setCategory("films")}>Films</HeaderLink>
-          <HeaderLink onClick={() => setCategory("series")}>Series</HeaderLink>
-        </BrowseNavbar>
-        <FeatureWrapperBrowse>
-          <FeatureTitleBrowse>Watch The Irish Man</FeatureTitleBrowse>
-          <FeatureSubTitleBrowse>
-            Hit man Frank Sheeran looks back at the secrets he kept as a loyal
-            member of the Bufalino crime family in this acclaimed film from
-            Martin Scorsese.
-          </FeatureSubTitleBrowse>
-          <PlayButton onClick={() => setShowPlayer(true)}>Play</PlayButton>
-          {showPlayer ? (
-            <PlayerOverlay onClick={() => setShowPlayer(false)}>
-              <PlayerVideo src="./videos/video.mp4" type="video/mp4" />
-            </PlayerOverlay>
-          ) : null}
-        </FeatureWrapperBrowse>
-      </BrowseHeaderWrapper>
+	return (
+		<>
+			<Head>
+				<title>Netflix - Browse</title>
+				<meta charSet="utf-8" />
+				<meta name="description" content="Netflix Clone Built Using NEXT.JS" />
+				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+			</Head>
+			<BrowseHeaderWrapper>
+				<BrowseNavbar>
+					<Logo />
+					<HeaderLink
+						onClick={() => {
+							global.analytics.track("Category View - Films");
+							setCategory("films");
+						}}
+					>
+						Films
+					</HeaderLink>
+					<HeaderLink
+						onClick={() => {
+							global.analytics.track("Category View - Series");
+							setCategory("series");
+						}}
+					>
+						Series
+					</HeaderLink>
+					<SignoutButton>Sign out</SignoutButton>
+				</BrowseNavbar>
+				<FeatureWrapperBrowse>
+					<FeatureTitleBrowse>Watch The Irish Man</FeatureTitleBrowse>
+					<FeatureSubTitleBrowse>
+						Hit man Frank Sheeran looks back at the secrets he kept as a loyal
+						member of the Bufalino crime family in this acclaimed film from
+						Martin Scorsese.
+					</FeatureSubTitleBrowse>
+					<PlayButton onClick={() => setShowPlayer(true)}>Play</PlayButton>
+					{showPlayer ? (
+						<PlayerOverlay onClick={() => setShowPlayer(false)}>
+							<PlayerVideo src="./videos/video.mp4" type="video/mp4" />
+						</PlayerOverlay>
+					) : null}
+				</FeatureWrapperBrowse>
+			</BrowseHeaderWrapper>
 
-      <AllSlidesWrapper>
-        {currentCategory.map((slideItem) => (
-          <SlideWrapper key={`${category}-${slideItem.title.toLowerCase()}`}>
-            <SlideTitle>{slideItem.title}</SlideTitle>
-            <AllCardsWrapper>
-              {slideItem.data.map((cardItem) => (
-                <CardWrapper key={cardItem.docId}>
-                  <CardImage
-                    onClick={() => {
-                      setShowCardFeature(true);
-                      setActiveItem(cardItem);
-                    }}
-                    src={`../images/${category}/${cardItem.genre}/${cardItem.slug}/small.jpg`}
-                  />
-                </CardWrapper>
-              ))}
-            </AllCardsWrapper>
-            {showCardFeature &&
-            slideItem.title.toLowerCase() === activeItem.genre ? (
-              <CardFeatureWrapper
-                style={{
-                  backgroundImage: `url(../images/${category}/${activeItem.genre}/${activeItem.slug}/large.jpg)`,
-                }}
-              >
-                <CardTitle>{activeItem.title}</CardTitle>
-                <CardDescription>{activeItem.description}</CardDescription>
-                <CardFeatureClose onClick={() => setShowCardFeature(false)} />
-                <PlayButton onClick={() => setShowPlayer(true)}>
-                  Play
-                </PlayButton>
-                {showPlayer ? (
-                  <PlayerOverlay onClick={() => setShowPlayer(false)}>
-                    <PlayerVideo src="../videos/video.mp4" type="video/mp4" />
-                  </PlayerOverlay>
-                ) : null}
-              </CardFeatureWrapper>
-            ) : null}
-          </SlideWrapper>
-        ))}
-      </AllSlidesWrapper>
-      <FooterCompound />
-    </>
-  );
+			<AllSlidesWrapper>
+				{currentCategory.map((slideItem) => (
+					<SlideWrapper key={`${category}-${slideItem.title.toLowerCase()}`}>
+						<SlideTitle>{slideItem.title}</SlideTitle>
+						<AllCardsWrapper>
+							{slideItem.data.map((cardItem) => (
+								<CardWrapper key={cardItem.docId}>
+									<CardImage
+										onClick={() => {
+											global.analytics.track("Title Preview", {
+												cardItem,
+											});
+											setShowCardFeature(true);
+											setActiveItem(cardItem);
+										}}
+										src={`../images/${category}/${cardItem.genre}/${cardItem.slug}/small.jpg`}
+									/>
+								</CardWrapper>
+							))}
+						</AllCardsWrapper>
+						{showCardFeature &&
+						slideItem.title.toLowerCase() === activeItem.genre ? (
+							<CardFeatureWrapper
+								style={{
+									backgroundImage: `url(../images/${category}/${activeItem.genre}/${activeItem.slug}/large.jpg)`,
+								}}
+							>
+								<CardTitle>{activeItem.title}</CardTitle>
+								<CardDescription>{activeItem.description}</CardDescription>
+								<CardFeatureClose onClick={() => setShowCardFeature(false)} />
+								<PlayButton onClick={() => setShowPlayer(true)}>
+									Play
+								</PlayButton>
+								{showPlayer ? (
+									<PlayerOverlay onClick={() => setShowPlayer(false)}>
+										<PlayerVideo src="../videos/video.mp4" type="video/mp4" />
+									</PlayerOverlay>
+								) : null}
+							</CardFeatureWrapper>
+						) : null}
+					</SlideWrapper>
+				))}
+			</AllSlidesWrapper>
+			<FooterCompound />
+		</>
+	);
 }
 
 export default BrowsePage;

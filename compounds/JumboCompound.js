@@ -10,24 +10,24 @@ import JumboData from "../data/jumbo.json";
 import Seperator from "../components/Seperator/Seperator";
 
 function JumboCompound() {
-  return (
-    <JumboWrapper>
-      {JumboData.map((item) => (
-        <>
-          <JumboItem key={item.id}>
-            <JumboTextWrapper>
-              <JumboTitle>{item.title}</JumboTitle>
-              <JumboSubTitle>{item.subTitle}</JumboSubTitle>
-            </JumboTextWrapper>
-            <JumboImageWrapper>
-              <JumboImage src={item.image} alt={item.alt} />
-            </JumboImageWrapper>
-          </JumboItem>
-          <Seperator />
-        </>
-      ))}
-    </JumboWrapper>
-  );
+	return (
+		<JumboWrapper key="jumbotron">
+			{JumboData.map((item) => (
+				<React.Fragment key={item.id}>
+					<JumboItem key={item.id}>
+						<JumboTextWrapper>
+							<JumboTitle>{item.title}</JumboTitle>
+							<JumboSubTitle>{item.subTitle}</JumboSubTitle>
+						</JumboTextWrapper>
+						<JumboImageWrapper>
+							<JumboImage src={item.image} alt={item.alt} />
+						</JumboImageWrapper>
+					</JumboItem>
+					<Seperator />
+				</React.Fragment>
+			))}
+		</JumboWrapper>
+	);
 }
 
 export default JumboCompound;

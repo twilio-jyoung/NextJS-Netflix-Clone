@@ -1,14 +1,38 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import Script from "next/script";
+import * as snippet from "@segment/snippet";
+// import { useEffect } from "react";
 import { FirebaseContext } from "../context/FirbaseContext";
+// import { useRouter } from "next/router";
+// import Script from "next/script";
 import firebase from "../lib/firebase.prod";
 
+const DEFAULT_WRITE_KEY = "9WBMpHIqMlook3iXwB85Stgw6mtthu65";
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <FirebaseContext.Provider value={ firebase }>
-      <Component {...pageProps} />
-    </FirebaseContext.Provider>
-  );
+function renderSnippet() {
+	const opts = {
+		apiKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY || DEFAULT_WRITE_KEY,
+		// note: the page option only covers SSR tracking.
+		// Page.js is used to track other events using `window.analytics.page()`
+		page: true,
+	};
+
+	if (process.env.NODE_ENV === "development") {
+		return snippet.max(opts);
+	}
+
+	return snippet.min(opts);
 }
 
-export default MyApp
+function MyApp({ Component, pageProps }) {
+	return (
+		<>
+			<Script dangerouslySetInnerHTML={{ __html: renderSnippet() }} />
+			<FirebaseContext.Provider value={firebase}>
+				<Component {...pageProps} />
+			</FirebaseContext.Provider>
+		</>
+	);
+}
+
+export default MyApp;

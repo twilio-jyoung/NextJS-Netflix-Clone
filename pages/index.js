@@ -8,25 +8,25 @@ import FooterCompound from "../compounds/FooterCompound";
 import Head from "next/head";
 
 function Home() {
-  return (
-    <>
-      <Head>
-        <title>Netflix NEXT.JS</title>
-        <meta charSet="utf-8" />
-        <meta name="description" content="Netflix Clone Built Using NEXT.JS" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <HeaderCompound>
-        <OptFormCompound />
-      </HeaderCompound>
-      <Seperator />
-      <JumboCompound />
-      <AccordionCompound />
-      <OptFormCompound />
-      <Seperator />
-      <FooterCompound />
-    </>
-  );
+	return (
+		<>
+			<Head>
+				<title>Netflix Demo Home</title>
+				<meta charSet="utf-8" />
+				<meta name="description" content="Netflix Clone Built Using NEXT.JS" />
+				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+			</Head>
+			<HeaderCompound>
+				<OptFormCompound />
+			</HeaderCompound>
+			<Seperator />
+			<JumboCompound />
+			<AccordionCompound />
+			<OptFormCompound />
+			<Seperator />
+			<FooterCompound />
+		</>
+	);
 }
 
 export default Home;
