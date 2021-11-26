@@ -1,31 +1,31 @@
 {
-  "name": "nextjs-netflix-clone",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@segment/snippet": "^4.15.3",
-    "crypto": "^1.0.1",
-    "firebase": "^7.24.0",
-    "fs": "^0.0.1-security",
-    "net": "^1.0.2",
-    "next": "^12.0.3",
-    "phone": "^3.1.8",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "styled-components": "^5.2.0",
-    "tls": "^0.0.1",
-    "twilio": "^3.71.1"
-  },
-  "devDependencies": {
-    "babel-plugin-styled-components": "^1.11.1",
-    "stylelint": "^13.3.3",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-csstree-validator": "^1.8.0",
-    "stylelint-scss": "^3.17.2"
-  }
+	"name": "nextjs-netflix-clone",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev -p 3002",
+		"build": "next build -p 3002",
+		"start": "next start -p 3002"
+	},
+	"dependencies": {
+		"@segment/snippet": "^4.15.3",
+		"crypto": "^1.0.1",
+		"firebase": "^7.24.0",
+		"fs": "^0.0.1-security",
+		"net": "^1.0.2",
+		"next": "^12.0.3",
+		"phone": "^3.1.8",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"styled-components": "^5.2.0",
+		"tls": "^0.0.1",
+		"twilio": "^3.71.1"
+	},
+	"devDependencies": {
+		"babel-plugin-styled-components": "^1.11.1",
+		"stylelint": "^13.3.3",
+		"stylelint-config-standard": "^20.0.0",
+		"stylelint-csstree-validator": "^1.8.0",
+		"stylelint-scss": "^3.17.2"
+	}
 }

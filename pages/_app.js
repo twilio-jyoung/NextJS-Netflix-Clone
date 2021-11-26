@@ -7,11 +7,9 @@ import { FirebaseContext } from "../context/FirbaseContext";
 // import Script from "next/script";
 import firebase from "../lib/firebase.prod";
 
-const DEFAULT_WRITE_KEY = "9WBMpHIqMlook3iXwB85Stgw6mtthu65";
-
 function renderSnippet() {
 	const opts = {
-		apiKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY || DEFAULT_WRITE_KEY,
+		apiKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY
 		// note: the page option only covers SSR tracking.
 		// Page.js is used to track other events using `window.analytics.page()`
 		page: true,

@@ -5,18 +5,17 @@ import OptFormEmail from "../components/OptForm/OptFormEmail";
 import OptFormButton from "../components/OptForm/OptFormButton";
 
 function OptFormCompound({ children }) {
-  return (
-    <>
-      <OptFormText>
-        Ready to watch? Enter your email to create or restart your membership.
-      </OptFormText>
-      <OptFormWrapper>
-        <OptFormEmail></OptFormEmail>
-        <OptFormButton>Get Started</OptFormButton>
-      </OptFormWrapper>
-      {children}
-    </>
-  );
+	return (
+		<>
+			<OptFormText>
+				Ready to watch? Enter your email to create or restart your membership.
+			</OptFormText>
+			<OptFormWrapper>
+				<OptFormButton>Sign Up!</OptFormButton>
+			</OptFormWrapper>
+			{children}
+		</>
+	);
 }
 
 export default OptFormCompound;
